@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Protocols Landscape 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 30px 0;
+            padding: 40px;
+            min-height: 80vh;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 0.8s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.3em;
+            margin-bottom: 40px;
+        }
+
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .protocol-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .protocol-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .protocol-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .protocol-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .protocol-year {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .rating-container {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rating-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            background: #ddd;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .star.filled {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        .protocol-details {
+            margin-top: 20px;
+        }
+
+        .detail-row {
+            margin: 8px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #34495e;
+            min-width: 80px;
+            margin-right: 10px;
+        }
+
+        .detail-value {
+            color: #7f8c8d;
+            flex: 1;
+        }
+
+        .adopters {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 3px solid #3498db;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 45%;
+            margin: 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+        .chart-legend {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .legend-protocol {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Dashboard Styles */
+        .maturity-tiers {
+            margin: 30px 0;
+        }
+
+        .tier {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,249,250,0.9));
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-left: 5px solid #667eea;
+        }
+
+        .tier h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .tier-leader { border-left-color: #27ae60; background: linear-gradient(135deg, rgba(39,174,96,0.1), rgba(46,204,113,0.05)); }
+        .tier-emerging { border-left-color: #f39c12; background: linear-gradient(135deg, rgba(243,156,18,0.1), rgba(241,196,15,0.05)); }
+        .tier-developing { border-left-color: #3498db; background: linear-gradient(135deg, rgba(52,152,219,0.1), rgba(41,128,185,0.05)); }
+        .tier-early { border-left-color: #9b59b6; background: linear-gradient(135deg, rgba(155,89,182,0.1), rgba(142,68,173,0.05)); }
+
+        .tier-protocols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .protocol-bubble {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .protocol-bubble:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .bubble-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .protocol-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .scores {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .protocol-desc {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .protocol-status {
+            color: #34495e;
+            font-size: 0.85em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Protocol-specific colors */
+        .mcp { border-left: 4px solid #27ae60; }
+        .langchain { border-left: 4px solid #f39c12; }
+        .a2a { border-left: 4px solid #8e44ad; }
+        .agntcy { border-left: 4px solid #e67e22; }
+        .acp { border-left: 4px solid #16a085; }
+        .agui { border-left: 4px solid #e74c3c; }
+        .ap2 { border-left: 4px solid #3498db; }
+        .nanda { border-left: 4px solid #9b59b6; }
+
+        .dashboard-insights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(102,126,234,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: scale(1.05);
+        }
+
+        .insight-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .insight-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 20px; }
+            h1 { font-size: 2em; }
+            .protocols-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { flex-direction: column !important; }
+            .timeline-content { width: calc(100% - 60px); margin-left: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Title Slide -->
+        <section class="slide">
+            <h1>AI Agent Protocols Landscape</h1>
+            <p class="subtitle">A Comprehensive Analysis as of September 19, 2025</p>
+
+            <div class="overview-stats">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Active Protocols</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2024-2025</div>
+                    <div class="stat-label">Development Period</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Max Maturity Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Multiple</div>
+                    <div class="stat-label">Industry Leaders</div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>Key Insights</h3>
+                <p>The AI agent protocol ecosystem is rapidly evolving with significant contributions from major tech companies including Anthropic, Google, IBM, and LangChain. Most protocols are in early stages with MCP leading in both maturity and adoption.</p>
+            </div>
+
+            <div class="legend">
+                <h3>Scoring Legend</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(45deg, #f39c12, #e67e22);"></div>
+                    <span><strong>Maturity:</strong> Production readiness (1 = nascent, 5 = widely adopted)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(45deg, #3498db, #2980b9);"></div>
+                    <span><strong>Uptake:</strong> Visible adoption and integrations (1 = low, 5 = high)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocol Analysis Dashboard -->
+        <section class="slide">
+            <h2>Protocol Landscape Dashboard</h2>
+
+            <!-- Maturity Tiers -->
+            <div class="maturity-tiers">
+                <div class="tier tier-leader">
+                    <h3>🏆 Market Leaders</h3>
+                    <div class="tier-protocols">
+                        <div class="protocol-bubble mcp">
+                            <div class="bubble-header">
+                                <span class="protocol-name">MCP</span>
+                                <span class="scores">4★ | 4★</span>
+                            </div>
+                            <div class="protocol-desc">Model Context Protocol</div>
+                            <div class="protocol-status">Production Ready</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-emerging">
+                    <h3>⚡ Growing Adoption</h3>
+                    <div class="tier-protocols">
+                        <div class="protocol-bubble langchain">
+                            <div class="bubble-header">
+                                <span class="protocol-name">LangChain</span>
+                                <span class="scores">3★ | 3★</span>
+                            </div>
+                            <div class="protocol-desc">Agent Protocol</div>
+                            <div class="protocol-status">Usable & Growing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-developing">
+                    <h3>🚀 In Development</h3>
+                    <div class="tier-protocols">
+                        <div class="protocol-bubble a2a">
+                            <div class="bubble-header">
+                                <span class="protocol-name">A2A</span>
+                                <span class="scores">2★ | 2★</span>
+                            </div>
+                            <div class="protocol-desc">Agent2Agent</div>
+                            <div class="protocol-status">Fast Moving</div>
+                        </div>
+                        <div class="protocol-bubble agntcy">
+                            <div class="bubble-header">
+                                <span class="protocol-name">AGNTCY</span>
+                                <span class="scores">2★ | 2★</span>
+                            </div>
+                            <div class="protocol-desc">Internet of Agents</div>
+                            <div class="protocol-status">Specs Maturing</div>
+                        </div>
+                        <div class="protocol-bubble acp">
+                            <div class="bubble-header">
+                                <span class="protocol-name">ACP</span>
+                                <span class="scores">2★ | 2★</span>
+                            </div>
+                            <div class="protocol-desc">Agent Communication</div>
+                            <div class="protocol-status">Open Source</div>
+                        </div>
+                        <div class="protocol-bubble agui">
+                            <div class="bubble-header">
+                                <span class="protocol-name">AG-UI</span>
+                                <span class="scores">2★ | 2★</span>
+                            </div>
+                            <div class="protocol-desc">Agent UI Protocol</div>
+                            <div class="protocol-status">Niche Focus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-early">
+                    <h3>🔬 Early Stage</h3>
+                    <div class="tier-protocols">
+                        <div class="protocol-bubble ap2">
+                            <div class="bubble-header">
+                                <span class="protocol-name">AP2</span>
+                                <span class="scores">1★ | 1★</span>
+                            </div>
+                            <div class="protocol-desc">Agent Payments</div>
+                            <div class="protocol-status">Pre-Commercial</div>
+                        </div>
+                        <div class="protocol-bubble nanda">
+                            <div class="bubble-header">
+                                <span class="protocol-name">NANDA</span>
+                                <span class="scores">1★ | 1★</span>
+                            </div>
+                            <div class="protocol-desc">Decentralized AI</div>
+                            <div class="protocol-status">Research Phase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="dashboard-insights">
+                <div class="insight-card">
+                    <div class="insight-number">75%</div>
+                    <div class="insight-label">Protocols in Early Development</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">2025</div>
+                    <div class="insight-label">Year of Major Growth</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">1</div>
+                    <div class="insight-label">Clear Market Leader</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">4</div>
+                    <div class="insight-label">Major Tech Sponsors</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocol Cards -->
+        <section class="slide">
+            <h2>Protocol Detailed Overview</h2>
+            <div class="protocols-grid">
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">Model Context Protocol (MCP)</div>
+                        <div class="protocol-year">2024</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">Anthropic (open-source)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Context + tools layer (agents ⇄ data/tools)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value">Emerging standard; production-ready in parts</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> Anthropic Claude Desktop, Windows AI Foundry preview, Replit, Codeium
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">Agent2Agent (A2A)</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">Google (open spec/site) + community</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Agent-to-agent interop & messaging</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value">Early but fast-moving; pilots</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> Google ecosystem; mentions across vendors
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">LangChain Agent Protocol</div>
+                        <div class="protocol-year">2024</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">LangChain / LangGraph</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Framework-agnostic API for serving agents</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value">Early but usable; growing tooling</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> LangGraph Studio; community frameworks
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">Agent Payments Protocol (AP2)</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">Google + payments partners</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Payments authorization for agents</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value">Very early; pre-commercial pilots</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Partners:</strong> Mastercard, PayPal, AmEx, Coinbase, Revolut, Etsy
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Protocols -->
+        <section class="slide">
+            <h2>Emerging & Specialized Protocols</h2>
+            <div class="protocols-grid">
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">Agent Communication Protocol (ACP)</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">IBM Research (Linux Foundation BeeAI)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">General agent messaging / interop</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> IBM BeeAI; Linux Foundation projects
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">AGNTCY Suite</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">AGNTCY (Cisco/Outshift, LangChain) under Linux Foundation</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Internet-of-agents stack (discovery, identity, messaging)</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> AGNTCY community; Cisco/Outshift; LangChain
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">AG-UI</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">CopilotKit</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Agent ⇄ UI event streaming</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> CopilotKit ecosystem
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-name">NANDA</div>
+                        <div class="protocol-year">2025</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <div class="rating-label">Maturity</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-label">Uptake</div>
+                            <div class="rating-stars">
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="protocol-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Steward:</span>
+                            <span class="detail-value">MIT Media Lab initiative / community</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Decentralized agent network (identity, discovery, economy)</span>
+                        </div>
+                        <div class="adopters">
+                            <strong>Notable Adopters:</strong> Research community; startups exploring
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="slide">
+            <h2>Protocol Development Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2024: Foundation Year</h3>
+                        <p><strong>Model Context Protocol (MCP)</strong> - Anthropic launches the first major protocol, establishing the foundation for agent-data/tool interactions.</p>
+                        <p><strong>LangChain Agent Protocol</strong> - Framework-agnostic API for serving agents gains traction.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025: Expansion & Specialization</h3>
+                        <p><strong>Agent2Agent (A2A)</strong> - Google introduces inter-agent communication protocols.</p>
+                        <p><strong>Agent Payments Protocol (AP2)</strong> - Revolutionary payment authorization for agents with major financial partners.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025: Open Source & Standards</h3>
+                        <p><strong>AGNTCY Suite</strong> - Comprehensive internet-of-agents stack moves to Linux Foundation.</p>
+                        <p><strong>Agent Communication Protocol (ACP)</strong> - IBM Research contributes to open-source agent messaging.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025: Niche Solutions</h3>
+                        <p><strong>AG-UI</strong> - CopilotKit addresses agent-UI interaction needs.</p>
+                        <p><strong>NANDA</strong> - MIT Media Lab explores decentralized agent networks.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="slide">
+            <h2>Key Takeaways & Future Outlook</h2>
+
+            <div class="highlight">
+                <h3>🎯 Market Leaders</h3>
+                <p><strong>Model Context Protocol (MCP)</strong> dominates with the highest maturity and adoption scores, backed by Anthropic and major integrations.</p>
+            </div>
+
+            <div class="highlight">
+                <h3>🚀 Rapid Innovation</h3>
+                <p>The landscape shows explosive growth in 2025 with 6 new protocols, indicating strong industry momentum and diverse use case exploration.</p>
+            </div>
+
+            <div class="highlight">
+                <h3>🏢 Corporate Backing</h3>
+                <p>Major tech companies (Google, Anthropic, IBM, LangChain) are actively investing, suggesting long-term commitment to agent protocol standardization.</p>
+            </div>
+
+            <div class="highlight">
+                <h3>💰 Financial Integration</h3>
+                <p>Agent Payments Protocol (AP2) represents a paradigm shift, enabling autonomous financial transactions with support from major payment providers.</p>
+            </div>
+
+            <div class="overview-stats">
+                <div class="stat-card">
+                    <div class="stat-number">75%</div>
+                    <div class="stat-label">Early Stage Protocols</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">2025 Growth</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Active Ecosystems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Future Potential</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; color: #7f8c8d; font-style: italic;">
+                Data snapshot as of September 19, 2025 • AI Agent Protocols Landscape Analysis
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Animate slides on scroll
+        function animateSlides() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.style.animationDelay = `${index * 0.2}s`;
+            });
+        }
+
+        // Create scatter plot
+        function createScatterPlot() {
+            const canvas = document.getElementById('scatterChart');
+            if (!canvas) {
+                console.error('Canvas element not found');
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+
+            const data = {
+                datasets: [{
+                    label: 'AI Agent Protocols',
+                    data: [
+                        {x: 4, y: 4, label: 'MCP'},
+                        {x: 2, y: 2, label: 'A2A'},
+                        {x: 1, y: 1, label: 'AP2'},
+                        {x: 2, y: 2, label: 'ACP'},
+                        {x: 3, y: 3, label: 'LangChain'},
+                        {x: 2, y: 2, label: 'AGNTCY'},
+                        {x: 2, y: 2, label: 'AG-UI'},
+                        {x: 1, y: 1, label: 'NANDA'}
+                    ],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(52, 152, 219, 0.8)',
+                        'rgba(46, 204, 113, 0.8)',
+                        'rgba(241, 196, 15, 0.8)',
+                        'rgba(230, 126, 34, 0.8)',
+                        'rgba(231, 76, 60, 0.8)',
+                        'rgba(155, 89, 182, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(118, 75, 162, 1)',
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(241, 196, 15, 1)',
+                        'rgba(230, 126, 34, 1)',
+                        'rgba(231, 76, 60, 1)',
+                        'rgba(155, 89, 182, 1)'
+                    ],
+                    borderWidth: 2,
+                    pointRadius: 10,
+                    pointHoverRadius: 12
+                }]
+            };
+
+            const config = {
+                type: 'scatter',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Protocol Maturity vs Uptake Comparison',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.raw.label}: Maturity ${context.parsed.x}, Uptake ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Maturity Score (1-5)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Uptake Score (1-5)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart',
+                        onComplete: function() {
+                            // Draw labels after animation completes
+                            drawLabels(ctx, chart);
+                        }
+                    }
+                }
+            };
+
+            console.log('Creating chart with data:', data);
+            const chart = new Chart(ctx, config);
+            console.log('Chart created successfully');
+
+            // Function to draw labels on chart points
+            function drawLabels(ctx, chart) {
+                const meta = chart.getDatasetMeta(0);
+                const data = chart.data.datasets[0].data;
+
+                ctx.save();
+                ctx.font = 'bold 11px Arial';
+                ctx.fillStyle = '#2c3e50';
+                ctx.textAlign = 'center';
+
+                meta.data.forEach((point, index) => {
+                    const label = data[index].label;
+                    const x = point.x;
+                    const y = point.y - 15; // Position label above the point
+
+                    // Draw white background for better readability
+                    const textWidth = ctx.measureText(label).width;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fillRect(x - textWidth/2 - 3, y - 8, textWidth + 6, 14);
+
+                    // Draw the label text
+                    ctx.fillStyle = '#2c3e50';
+                    ctx.fillText(label, x, y + 3);
+                });
+
+                ctx.restore();
+            }
+        }
+
+        // Create a scatter plot that shows all protocols without overlap
+        function createSimpleScatterPlot() {
+            const canvas = document.getElementById('scatterChart');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = 800;
+            canvas.height = 500;
+
+            // Use fine-grained positioning based on protocol characteristics
+            const protocols = [
+                {name: 'MCP', x: 4.0, y: 4.0, color: '#667eea', subtext: 'Production-ready, wide adoption'},
+                {name: 'LangChain', x: 3.0, y: 3.0, color: '#f1c40f', subtext: 'Usable, growing tooling'},
+                {name: 'A2A', x: 2.1, y: 2.2, color: '#764ba2', subtext: 'Fast-moving, pilots'},
+                {name: 'ACP', x: 2.0, y: 2.0, color: '#2ecc71', subtext: 'Open-source reference'},
+                {name: 'AGNTCY', x: 2.2, y: 2.1, color: '#e67e22', subtext: 'Specs maturing'},
+                {name: 'AG-UI', x: 1.9, y: 1.8, color: '#e74c3c', subtext: 'Niche but practical'},
+                {name: 'AP2', x: 1.0, y: 1.0, color: '#3498db', subtext: 'Pre-commercial pilots'},
+                {name: 'NANDA', x: 0.8, y: 0.9, color: '#9b59b6', subtext: 'Conceptual/research'}
+            ];
+
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw grid and labels
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            ctx.font = '12px Arial';
+            ctx.fillStyle = '#666';
+
+            // Draw vertical grid lines and x-axis labels
+            for (let i = 0; i <= 5; i++) {
+                const x = 100 + (i * 120);
+                ctx.beginPath();
+                ctx.moveTo(x, 50);
+                ctx.lineTo(x, 400);
+                ctx.stroke();
+                ctx.fillText(i.toString(), x - 5, 425);
+            }
+
+            // Draw horizontal grid lines and y-axis labels
+            for (let i = 0; i <= 5; i++) {
+                const y = 400 - (i * 70);
+                ctx.beginPath();
+                ctx.moveTo(100, y);
+                ctx.lineTo(700, y);
+                ctx.stroke();
+                ctx.fillText(i.toString(), 85, y + 4);
+            }
+
+            // Draw axis titles
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Maturity Score (1-5)', 350, 445);
+
+            ctx.save();
+            ctx.translate(30, 225);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText('Uptake Score (1-5)', 0, 0);
+            ctx.restore();
+
+            // Draw title
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('Protocol Maturity vs Uptake Comparison', 220, 30);
+
+            // Draw protocol points with precise positioning
+            protocols.forEach((protocol, index) => {
+                const x = 100 + (protocol.x * 120);
+                const y = 400 - (protocol.y * 70);
+
+                // Draw point with gradient effect
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, 12);
+                gradient.addColorStop(0, protocol.color);
+                gradient.addColorStop(1, protocol.color + '80');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(x, y, 12, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // Add white border
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Add subtle shadow
+                ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(x + 1, y + 1, 12, 0, 2 * Math.PI);
+                ctx.stroke();
+
+                // Draw label with background
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                ctx.lineWidth = 1;
+                const textWidth = ctx.measureText(protocol.name).width;
+                const labelX = x - textWidth/2 - 6;
+                const labelY = y - 25;
+                ctx.fillRect(labelX, labelY, textWidth + 12, 18);
+                ctx.strokeRect(labelX, labelY, textWidth + 12, 18);
+
+                // Draw label text
+                ctx.fillStyle = '#2c3e50';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(protocol.name, x, y - 12);
+
+                // Draw coordinates as small text
+                ctx.fillStyle = '#666';
+                ctx.font = '9px Arial';
+                ctx.fillText(`(${protocol.x}, ${protocol.y})`, x, y + 25);
+            });
+
+            // Add fine-grained scale indicators
+            ctx.fillStyle = '#999';
+            ctx.font = '9px Arial';
+            ctx.textAlign = 'left';
+
+            // Add minor tick marks for 0.5 increments
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            for (let i = 0.5; i <= 4.5; i += 0.5) {
+                const x = 100 + (i * 120);
+                ctx.beginPath();
+                ctx.moveTo(x, 395);
+                ctx.lineTo(x, 405);
+                ctx.stroke();
+
+                const y = 400 - (i * 70);
+                ctx.beginPath();
+                ctx.moveTo(95, y);
+                ctx.lineTo(105, y);
+                ctx.stroke();
+            }
+
+            // Add legend
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Fine-grained positioning reflects protocol maturity nuances', 450, 460);
+            ctx.fillText('Decimal values show relative positioning within score bands', 450, 475);
+        }
+
+        // Initialize animations and interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            animateSlides();
+            initializeDashboard();
+        });
+
+        function initializeDashboard() {
+            // Add hover animations to protocol bubbles
+            document.querySelectorAll('.protocol-bubble').forEach(bubble => {
+                bubble.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+
+                bubble.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Animate insight cards on load
+            document.querySelectorAll('.insight-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.classList.add('fade-in');
+            });
+
+            // Animate protocol bubbles
+            document.querySelectorAll('.protocol-bubble').forEach((bubble, index) => {
+                bubble.style.opacity = '0';
+                bubble.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    bubble.style.transition = 'all 0.6s ease';
+                    bubble.style.opacity = '1';
+                    bubble.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Add hover effects to protocol cards
+        document.querySelectorAll('.protocol-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderLeft = '5px solid #764ba2';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.borderLeft = '5px solid #667eea';
+            });
+        });
+    </script>
+</body>
+</html>
